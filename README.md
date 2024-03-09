@@ -156,11 +156,22 @@ Here's a simplified example code snippet to demonstrate how you can conduct such
     # Simulation study
     results <- list()
     
-    for (effect_size in effect_sizes) {
-      for (mean_abundance in mean_abundances) {
-        for (dispersion_parameter in dispersion_parameters) {
-          # Simulate data
-          sim_data <- simulate_neg_binomial(n_samples, n_species, n_groups, mean_abundance, dispersion_parameter)
+     # Function to simulate negative binomial data with effect size
+    simulate_neg_binomial <- function(n_samples, n_species, n_groups, mu, size, effect_size) {
+      sim_data <- matrix(0, nrow = n_samples * n_groups, ncol = n_species)
+      for (i in 1:(n_samples * n_groups)) {
+        group_mean <- mu * (1 + ifelse(i <= n_samples * n_groups / 2, effect_size, -effect_size))
+        sim_data[i, ] <- rnbinom(n_species, mu = group_mean, size = size)
+        }
+        return(sim_data)
+        }
+  
+      #### REVISIT THIS: Code gives errors ####
+      
+      for (effect_size in effect_sizes) {
+        for (mean_abundance in mean_abundances) {
+          for (dispersion_parameter in dispersion_parameters) {
+            sim_data <- simulate_neg_binomial(n_samples, n_species, n_groups, mean_abundance, dispersion_parameter,             effect_size)
           group <- rep(1:n_groups, each = n_samples)
           
           # Perform analysis
