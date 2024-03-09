@@ -1,5 +1,5 @@
-# MultivariateExplns
-<h1>*Comparing approaches to multivariate data analysis*</h1>
+<h1>MultivariateExplns</h1>
+<h2>Comparing approaches to multivariate data analysis</h2>
 
 There has been much development in the last ~decade which promote the use of
 model-based approaches to the analysis of the multivariate taxon data that
