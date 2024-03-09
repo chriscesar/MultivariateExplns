@@ -55,21 +55,65 @@ Here's a simplified example code snippet to get you started:
     n_groups <- 2
     
     # Simulate compositional data
-    sim_data <- rcomp(n = n_samples, K = n_species, g = n_groups)
+    # here chatGPT uses a function that doesn't actually exist:
+    #sim_data <- rcomp(n = n_samples, K = n_species, g = n_groups)
+    
+    # After some cajoling, it provides an alternative approach, simulating data using the rpois function:
+    sim_data <- matrix(rpois(n_species * n_samples * n_groups, lambda = 5), nrow = n_samples * n_groups, ncol = n_species)
+    colnames(sim_data) <- paste0("Species", 1:n_species)
+    group <- rep(1:n_groups, each = n_samples)
     
     # Perform analysis
     # Distance-based analysis
-    anosim_result <- anosim(sim_data$abund, sim_data$group)
-    permanova_result <- adonis(sim_data$abund ~ sim_data$group)
+    anosim_result <- anosim(sim_data, group)
+    permanova_result <- adonis2(sim_data ~ group)
     
     # Model-based analysis
-    mvabund_model <- manyglm(sim_data$abund ~ sim_data$group, family = "negative.binomial")
-    gllvm_model <- gllvm(sim_data$abund, design = sim_data$group)
+    mvabund_model <- manyglm(sim_data ~ group, family = "negative.binomial")
+    gllvm_model <- gllvm(sim_data, design = group, family="negative.binomial")
     
     # Evaluate and visualize results
     print(anosim_result)
     print(permanova_result)
     summary(mvabund_model)
     summary(gllvm_model)
-
+    
+    # We can also use a negative binomial approach:
+    # Function to simulate negative binomial data
+    simulate_neg_binomial <- function(n_samples, n_species, n_groups, mu, size) {
+    sim_data <- matrix(0, nrow = n_samples * n_groups, ncol = n_species)
+    for (i in 1:(n_samples * n_groups)) {
+    sim_data[i, ] <- rnbinom(n_species, mu = mu, size = size)
+    }
+    return(sim_data)
+    }
+    
+    # Simulate data
+    set.seed(123)
+    n_species <- 50
+    n_samples <- 100
+    n_groups <- 2
+    mu <- 5
+    size <- 1  # Negative binomial dispersion parameter
+    
+    # Simulate compositional data with negative binomial distribution
+    sim_data <- simulate_neg_binomial(n_samples, n_species, n_groups, mu, size)
+    colnames(sim_data) <- paste0("Species", 1:n_species)
+    group <- rep(1:n_groups, each = n_samples)
+    
+    # Perform analysis
+    # Distance-based analysis
+    anosim_result <- anosim(sim_data, group)
+    permanova_result <- adonis2(as.data.frame(sim_data) ~ group)
+    
+    # Model-based analysis
+    mvabund_model <- manyglm(sim_data ~ group, family = "negative.binomial")
+    gllvm_model <- gllvm(sim_data, design = group, family="negative.binomial")
+    
+    # Evaluate and visualize results
+    print(anosim_result)
+    print(permanova_result)
+    summary(mvabund_model)
+    summary(gllvm_model)
+    
 Remember to adapt the above code according to your specific simulation settings and analysis requirements. Additionally, consult the documentation of each package for detailed usage instructions and options
