@@ -37,37 +37,39 @@ Certainly! Here's an overview of how you could simulate species datasets with kn
 * Visualization:
         Visualize the results using appropriate plots and graphs to illustrate the differences between groups and the effectiveness of each analysis method. Common visualizations include ordination plots (e.g., PCoA, NMDS) to visualize patterns in multivariate data, and boxplots or heatmaps to display differences in species abundances between groups.
 
--Reproducibility:
+* Reproducibility:
         Ensure reproducibility of your analysis by documenting your code and the parameters used for data simulation and analysis. Consider creating a script or a notebook that others can use to replicate your analysis.
 
 Here's a simplified example code snippet to get you started:
-``# Load required packages
-library(mvabund)
-library(gllvm)
-library(vegan)
 
-# Simulate data
-set.seed(123)
-n_species <- 50
-n_samples <- 100
-n_groups <- 2
 
-# Simulate compositional data
-sim_data <- rcomp(n = n_samples, K = n_species, g = n_groups)
+    # Load required packages
+    library(mvabund)
+    library(gllvm)
+    library(vegan)
+    
+    # Simulate data
+    set.seed(123)
+    n_species <- 50
+    n_samples <- 100
+    n_groups <- 2
+    
+    # Simulate compositional data
+    sim_data <- rcomp(n = n_samples, K = n_species, g = n_groups)
+    
+    # Perform analysis
+    # Distance-based analysis
+    anosim_result <- anosim(sim_data$abund, sim_data$group)
+    permanova_result <- adonis(sim_data$abund ~ sim_data$group)
+    
+    # Model-based analysis
+    mvabund_model <- manyglm(sim_data$abund ~ sim_data$group, family = "negative.binomial")
+    gllvm_model <- gllvm(sim_data$abund, design = sim_data$group)
+    
+    # Evaluate and visualize results
+    print(anosim_result)
+    print(permanova_result)
+    summary(mvabund_model)
+    summary(gllvm_model)
 
-# Perform analysis
-# Distance-based analysis
-anosim_result <- anosim(sim_data$abund, sim_data$group)
-permanova_result <- adonis(sim_data$abund ~ sim_data$group)
-
-# Model-based analysis
-mvabund_model <- manyglm(sim_data$abund ~ sim_data$group, family = "negative.binomial")
-gllvm_model <- gllvm(sim_data$abund, design = sim_data$group)
-
-# Evaluate and visualize results
-print(anosim_result)
-print(permanova_result)
-summary(mvabund_model)
-summary(gllvm_model)
-``
 Remember to adapt the above code according to your specific simulation settings and analysis requirements. Additionally, consult the documentation of each package for detailed usage instructions and options
