@@ -15,13 +15,13 @@ The aim of this project is to simulate multivariate data sets and to compare the
 outputs of a variety of analyses.
 
 <h3>I asked ChatGPT how to approach this</h3>
-**Prompt**
+<b>Prompt</b>
 
 <i>I wish to make comparisons of  different data analysis approaches for multivariate species data.  The techniques I will investigate include the distance-based ANOSIM, and PERMANOVA, and the model-based mvabund and gllvm.
 I'd like to simulate species datasets with known differences between 'groups' of samples and analyse these data to see which analysis methods are more sensitive to different properties of the data.
 Please provide an overview of how I might go about this. I am using the R software package</i>
 
-**Response**
+<b>Response</b>
 
 Certainly! Here's an overview of how you could simulate species datasets with known differences between groups of samples and analyze them using various techniques in R:
 
