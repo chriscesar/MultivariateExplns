@@ -191,3 +191,6 @@ Here's a simplified example code snippet to demonstrate how you can conduct such
     # For example, create plots or summarize statistics from the results list
 
 In this code, we loop through different combinations of effect sizes, mean abundances, and dispersion parameters, simulate data for each combination, perform analysis using ANOSIM and PERMANOVA, and store the results. You can then analyze and visualize the results to understand the impact of varying parameters on the analysis outcomes.
+
+<h3>Considerations</h3>
+* consider using 'real' ecological data with know differences. For example the data used in the development of the IQI tool
