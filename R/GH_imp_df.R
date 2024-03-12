@@ -42,6 +42,8 @@ glfit <- gllvm::gllvm(dford, family = "negative.binomial")
 saveRDS(glfit, file="outData/glfit_unconstrained.Rdat")
 Sys.time() - ptm;rm(ptm)
 glfit <- readRDS("outData/glfit_unconstrained.Rdat")
+
+ordiplot(glfit, biplot = TRUE)
 ##### TO DO ######
 
 
