@@ -55,7 +55,8 @@ set.seed(123)  # For reproducibility
 abundance_data <- simulate_abundance_data(n_species = 10,
                                           n_groups = 2,
                                           samples_per_group = 5,
+                                          mean_taxon_richness_difference = 5,
                                           mean_abundance_difference = 300,
                                           dispersion = 1,
-                                          zero_proportion = 0.5)
+                                          zero_proportion = 0.3)
 print(abundance_data)
