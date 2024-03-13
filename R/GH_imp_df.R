@@ -29,7 +29,9 @@ plot(ord)
 # mvabund ####
 mvdford <- mvabund::mvabund(dford)
 mvfit <- manyglm(mvdford ~ df0$Flag, family="negative.binomial")
-mvfitsummary <- summary(mvfit)
+# mvfitsummary <- summary(mvfit)
+# saveRDS(mvfitsummary, file="outData/mvfitsummary.Rdat")
+mvfitsummary <- readRDS("outData/mvfitsummary.Rdat")
 ptm <- Sys.time()###
 mvfit_anova <- mvabund::anova.manyglm(mvfit,p.uni = "adjusted")
 saveRDS(mvfit_anova, file="outData/mvfit_anova_out.Rdat")
