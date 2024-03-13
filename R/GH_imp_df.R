@@ -29,7 +29,7 @@ plot(ord)
 # mvabund ####
 mvdford <- mvabund::mvabund(dford)
 mvfit <- manyglm(mvdford ~ df0$Flag, family="negative.binomial")
-summary(mvfit)
+mvfitsummary <- summary(mvfit)
 ptm <- Sys.time()###
 mvfit_anova <- mvabund::anova.manyglm(mvfit,p.uni = "adjusted")
 saveRDS(mvfit_anova, file="outData/mvfit_anova_out.Rdat")
@@ -46,8 +46,6 @@ glfit <- readRDS("outData/glfit_unconstrained.Rdat")
 ordiplot(glfit, biplot = TRUE)
 ##### TO DO ######
 
-
-# TO DO ######
 #### plot in ggplot2 ####
 df0 %>% 
   dplyr::select(c(1:2)) -> scores_site
