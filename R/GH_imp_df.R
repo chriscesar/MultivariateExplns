@@ -32,23 +32,27 @@ mvfit <- manyglm(mvdford ~ df0$Flag, family="negative.binomial")
 # mvfitsummary <- summary(mvfit)
 # saveRDS(mvfitsummary, file="outData/mvfitsummary.Rdat")
 mvfitsummary <- readRDS("outData/mvfitsummary.Rdat")
-ptm <- Sys.time()###
-mvfit_anova <- mvabund::anova.manyglm(mvfit,p.uni = "adjusted")
-saveRDS(mvfit_anova, file="outData/mvfit_anova_out.Rdat")
-Sys.time() - ptm;rm(ptm)
+# ptm <- Sys.time()###
+# mvfit_anova <- mvabund::anova.manyglm(mvfit,p.uni = "adjusted")
+# saveRDS(mvfit_anova, file="outData/mvfit_anova_out.Rdat")
+# Sys.time() - ptm;rm(ptm)
 mvfit_anova <- readRDS("outData/mvfit_anova_out.Rdat")
 
 # gllvm ####
-ptm <- Sys.time()###
-glfit <- gllvm::gllvm(dford, family = "negative.binomial")
-saveRDS(glfit, file="outData/glfit_unconstrained.Rdat")
-Sys.time() - ptm;rm(ptm)
+# ptm <- Sys.time()###
+# glfit <- gllvm::gllvm(dford, family = "negative.binomial")
+# saveRDS(glfit, file="outData/glfit_unconstrained.Rdat")
+# Sys.time() - ptm;rm(ptm)
 glfit <- readRDS("outData/glfit_unconstrained.Rdat")
 
 ordiplot(glfit, biplot = TRUE)
 ##### TO DO ######
+## extract gllvm coordinates for plotting in ggplot.
+## Perhaps using Bert's code?
 
-#### plot in ggplot2 ####
+##################
+
+### plot in ggplot2 ####
 df0 %>% 
   dplyr::select(c(1:2)) -> scores_site
 
